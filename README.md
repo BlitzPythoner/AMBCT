@@ -1,7 +1,7 @@
 # AMBCT v1.0 – Automatic Manual Backup Creation Tool
 
 **Author:** BlitzPythoner  
-**Version:** 1.0  (21.10.2025)
+**Version:** 1.0 
 **Language:** Python 3.6+  
 **OS Support:** Windows Vista, 7, 8.x, 10, 11  
 **Architecture:** x64 (x86 support planned)  
@@ -86,6 +86,9 @@ This tool combines automation and manual control – perfect for users who want 
 Bug reports and feature requests are welcome via the project’s GitHub Issues page.
 
 ---
+## Releases
+- v1.0 Main Release [21-10-2025]
+---
 
 ## Project Duration
 
@@ -120,3 +123,4 @@ This software is provided *"as-is"*, without warranty of any kind.
 Use at your own risk. The author is not responsible for data loss or hardware damage caused by misuse of this tool.
 
 ---
+

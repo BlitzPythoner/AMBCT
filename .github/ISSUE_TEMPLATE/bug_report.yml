@@ -1,0 +1,48 @@
+name: Bug Report
+description: Report a problem, error, or crash in AMBCT
+labels: ["bug"]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Clearly describe what went wrong and what you expected to happen.
+      placeholder: "The backup process stops at 60% without any error message."
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to Reproduce
+      description: Provide exact steps so others can reproduce the issue.
+      placeholder: |
+        1. Start AMBCT
+        2. Select drive D:\
+        3. Choose target E:\
+        4. Observe crash or freeze
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: AMBCT Version
+      placeholder: "v1.0"
+    validations:
+      required: true
+
+  - type: input
+    id: os
+    attributes:
+      label: Operating System
+      placeholder: "Windows 10 x64"
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Log Output
+      description: Paste the last visible console output or error message.
+      placeholder: "Error: 'wmic' not found. Make sure you are running on Windows..."

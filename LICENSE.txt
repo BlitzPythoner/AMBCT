@@ -1,0 +1,25 @@
+AMBCT – Automatic Manual Backup Creation Tool
+Version 1.0
+© 2025 BlitzPythoner
+
+This software may be downloaded, used, and shared freely for both personal and commercial purposes.
+
+You are explicitly allowed to:
+- Download, share, and showcase this program online and offline
+- Use it in private or commercial projects, provided AMBCT remains a standalone, unmodified component
+- Create content (e.g., YouTube videos, articles, presentations) using or demonstrating this program
+
+You are required to:
+- Mention the original creator ("BlitzPythoner") in any public presentation, video, or article featuring this tool
+- Include a visible and working link to the official download page in any public listing, showcase, or video description
+
+You may modify the program for private use only.
+You may NOT:
+- Distribute modified versions of the source code or binary publicly or commercially
+- Claim authorship or ownership of AMBCT or any modified version thereof
+
+This software is provided "as-is", without warranty of any kind, express or implied.
+Use at your own risk.
+
+Note: AMBCT uses external components (such as wimlib-imagex) that are licensed separately.
+Please review their respective license terms before redistributing anything beyond this script.

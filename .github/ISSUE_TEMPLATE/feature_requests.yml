@@ -1,0 +1,28 @@
+name: Feature Request
+description: Suggest a new feature or improvement for AMBCT
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: idea
+    attributes:
+      label: Proposed Feature
+      description: Describe the feature you would like to see implemented.
+      placeholder: "Add an automatic scheduled backup option."
+    validations:
+      required: true
+
+  - type: textarea
+    id: reason
+    attributes:
+      label: Why is this useful?
+      description: Explain why this feature would be valuable to users.
+      placeholder: "It would allow users to back up automatically without manual setup."
+    validations:
+      required: false
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: Additional Context
+      description: Add any other relevant details, mockups, or references.
+      placeholder: "Could integrate with Task Scheduler for automation."

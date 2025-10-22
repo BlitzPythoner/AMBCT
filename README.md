@@ -1,10 +1,10 @@
 # AMBCT v1.0 – Automatic Manual Backup Creation Tool
 
 **Author:** BlitzPythoner  
-**Version:** 1.0 
+**Version:** 1.1
 **Language:** Python 3.6+  
 **OS Support:** Windows Vista, 7, 8.x, 10, 11  
-**Architecture:** x64 (x86 support planned)  
+**Architecture:** x64 and x86 (x32)  
 
 ---
 
@@ -17,28 +17,42 @@ This tool combines automation and manual control – perfect for users who want 
 
 ---
 
-## Main Features
+## Backup Creation Features
 
-- **Automatic Drive Detection:** Lists all connected drives with names, sizes, and available space.  
-- **Flexible Source Selection:** Back up entire drives or specific folders.  
-- **Destination Selection:** Choose where the backup should be stored, with optional path specification.  
-- **Storage Check:** Warns when the destination drive doesn’t have enough free space.  
-- **Compression Options:**  
-  - `NONE` – No compression, fastest.  
-  - `XPRESS` – Light/medium compression, balanced speed.  
-  - `LZX` – Strong compression, slower but efficient.  
-  - `LZMS` – Maximum compression, slowest but smallest result.  
-- **Additional Options:**  
-  - `check` – Verifies the integrity of the resulting backup.  
-  - `solid` – Combines file data into solid blocks for higher compression.  
-  - `shutdown` – Shuts down the system after backup creation.  
-- **Write Speed Test:** Measures sequential write speed using **WinSAT** before starting the backup.  
-- **ETA Calculation:** Estimates backup duration based on detected drive performance.  
-- **Progress Bar:** Real-time display of progress and estimated time remaining.  
-- **Snapshot Support:** Uses Volume Shadow Copy (VSS) on NTFS drives to capture files safely.  
-- **Error Handling:** Detects missing dependencies, insufficient space, or permission issues.  
-- **Automatic Cleanup:** Removes temporary files on exit.  
-- **Detailed Summary:** Displays all chosen settings and backup details before execution.
+- **Automatic Drive Detection:** Automatically lists all connected drives with volume names, sizes, and available space.  
+- **Flexible Backup Sources:** Create backups from entire drives or custom folders.  
+- **Custom Destination Paths:** Select any target drive or specify a subfolder for storing backups.  
+- **Smart Storage Check:** Warns if the destination has insufficient free space and suggests optimal requirements.  
+- **Advanced Compression Methods:**  
+  - `NONE` – No compression, fastest speed.  
+  - `XPRESS` – Balanced performance and size.  
+  - `LZX` – High compression, moderate CPU load.  
+  - `LZMS` – Maximum compression, minimal size, longest time.  
+- **Optional Backup Flags:**  
+  - `check` – Verifies backup integrity after completion.  
+  - `solid` – Increases compression by combining file data into solid blocks.  
+  - `shutdown` – Powers off the system automatically after the process finishes.  
+- **Write Speed Benchmark:** Runs a **WinSAT** test to measure target drive performance before backup.  
+- **ETA Prediction:** Calculates approximate backup time using real write speed data.  
+- **Dynamic Progress Bar:** Displays live percentage and time estimation during the backup.  
+- **VSS Snapshot Support:** Uses Windows Volume Shadow Copy on NTFS drives to ensure safe captures of active systems.  
+- **Robust Error Handling:** Detects missing dependencies, permission issues, and low-space conditions.  
+- **Automatic Cleanup:** Removes temporary files and restores system state on exit.  
+- **Detailed Overview:** Shows all user selections and settings for confirmation before starting the backup.  
+
+---
+
+## Backup Configuration Features
+
+- **WIM Image Management:** Open and inspect existing `.wim` backup files.  
+- **Detailed Metadata View:** Displays compression type, chunk size, file size, creation time, and Windows build info.  
+- **Edit Backup Information:**  
+  - Change **Name**  
+  - Change **Display Name**  
+  - Change **Display Description**  
+- **Multi-Index Support:** View and modify multiple images within one WIM file.  
+- **Safe Editing:** Uses `wimlib-imagex` with direct property modification — no data extraction required.  
+- **Version Detection:** Automatically identifies Windows versions (XP → 11) inside captured images.
 
 ---
 
@@ -55,24 +69,38 @@ This tool combines automation and manual control – perfect for users who want 
 
 ## How It Works
 
-1. The program starts by detecting all available drives.  
-2. The user selects the source (drive or folder).  
-3. The target destination for the backup is chosen.  
-4. AMBCT checks the available space and compression settings.  
-5. A write-speed benchmark (WinSAT) is performed.  
-6. The user reviews all settings before starting.  
-7. The backup is created using **wimlib-imagex**, with live progress updates.  
-8. Optional post-process actions (verification, shutdown) are executed.  
+1. **Drive Detection:**  
+   AMBCT scans and lists all available drives with names, sizes, and free space.  
+
+2. **Source Selection:**  
+   The user selects either an entire drive or a specific folder to back up.  
+
+3. **Destination Selection:**  
+   A target drive (and optional subfolder) is chosen as the backup destination.  
+
+4. **Storage & Compression Check:**  
+   AMBCT verifies available space and prompts the user to choose a compression method.  
+
+5. **Performance Benchmark:**  
+   A write-speed test using **WinSAT** measures target drive performance to improve ETA accuracy.  
+
+6. **Pre-Backup Summary:**  
+   All chosen settings are displayed for final user confirmation.  
+
+7. **Backup Creation:**  
+   The program uses **wimlib-imagex** to capture the selected source into a `.wim` file, showing live progress and ETA.  
+
+8. **Post-Processing:**  
+   If selected, AMBCT performs integrity verification (`--check`) and/or shuts down the system automatically after completion.  
 
 ---
 
 ## Limitations
-
-- Currently supports only **x64 systems**.  
-- **x86 version** is planned for a later release.  
+ 
 - Only **NTFS drives** support Volume Shadow Copy (snapshot).  
 - Requires sufficient free space for temporary and output files.  
-- Write-speed testing may fail on Windows versions without WinSAT.  
+- Write-speed testing may fail on Windows versions without WinSAT.
+    - If it fails, it can be skipped. 
 
 ---
 
@@ -87,7 +115,18 @@ Bug reports and feature requests are welcome via the project’s GitHub Issues p
 
 ---
 ## Releases
-- v1.0 Main Release [21-10-2025]
+
+- **v1.0** *(21.10.2025)*  
+  First public release of AMBCT (x64).  
+  Includes core backup creation, compression options, WinSAT speed test, and VSS snapshot support.
+
+- **v1.0.1** *(22.10.2025)*  
+  Bugfix release improving ETA calculation and handling failed WinSAT tests.
+
+- **v1.1** *(22.10.2025)*  
+  Major update with **x86 support** (now available as x64 and x86 builds).  
+  Added new *Configure Backup* mode to edit existing `.wim` images (name, description, etc.).  
+  Minor UI and stability improvements.
 ---
 
 ## Project Duration
@@ -123,4 +162,5 @@ This software is provided *"as-is"*, without warranty of any kind.
 Use at your own risk. The author is not responsible for data loss or hardware damage caused by misuse of this tool.
 
 ---
+
 

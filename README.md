@@ -91,8 +91,9 @@ This tool combines automation and manual control – perfect for users who want 
    The program uses **wimlib-imagex** to capture the selected source into a `.wim` file, showing live progress and ETA.  
 
 8. **Post-Processing:**  
-   If selected, AMBCT performs integrity verification (`--check`) and/or shuts down the system automatically after completion.  
-
+   If selected, AMBCT performs integrity verification (`--check`) and/or shuts down the system automatically after completion.
+ 
+For more info, visit https://blitzpythoner.github.io/AMBCT/ -> My custom Github page!
 ---
 
 ## Limitations
@@ -162,5 +163,6 @@ This software is provided *"as-is"*, without warranty of any kind.
 Use at your own risk. The author is not responsible for data loss or hardware damage caused by misuse of this tool.
 
 ---
+
 
 

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>AMBCT - Automatic Manual Backup Creation Tool</title>
+  <style>
+    body {
+      background-color: #000;
+      color: #00FF00;
+      font-family: monospace;
+      padding: 2rem;
+      line-height: 1.6;
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: bold;
+      margin-bottom: 2rem;
+      border-bottom: 2px solid #00FF00;
+      padding-bottom: 0.5rem;
+    }
+
+    .screenshot-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .screenshot-box {
+      text-align: center;
+      width: 18%;
+    }
+
+    .screenshot-box img {
+      max-width: 100%;
+      border: 2px solid #00FF00;
+      display: block;
+      margin: 0 auto 0.5rem;
+    }
+
+    .description {
+      margin-bottom: 2rem;
+    }
+
+    .button {
+      display: inline-block;
+      background: #000;
+      color: #00FF00;
+      border: 2px solid #00FF00;
+      padding: 0.8rem 1.2rem;
+      margin: 0.5rem 1rem 1.5rem 0;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.2s ease;
+    }
+
+    .button:hover {
+      background: #00FF00;
+      color: #000;
+    }
+
+    img.guide {
+      max-width: 100%;
+      border: 2px solid #00FF00;
+      margin: 1rem 0;
+    }
+
+    h2 {
+      border-bottom: 1px solid #00FF00;
+      padding-bottom: 0.3rem;
+      margin-top: 2.5rem;
+    }
+
+    h3 {
+      margin-top: 1.5rem;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>AMBCT – <strong>Automatic Manual</strong> Backup Creation Tool</h1>
+
+  <div class="screenshot-row">
+    <div class="screenshot-box">
+      <img src="images/VistaRunning.png" alt="Vista Screenshot" />
+      <p>AMBCT running on Windows Vista</p>
+    </div>
+    <div class="screenshot-box">
+      <img src="images/7Running.png" alt="7 Screenshot" />
+      <p>AMBCT running on Windows 7</p>
+    </div>
+    <div class="screenshot-box">
+      <img src="images/8Running.png" alt="8 Screenshot" />
+      <p>AMBCT running on Windows 8</p>
+    </div>
+    <div class="screenshot-box">
+      <img src="images/10Running.png" alt="10 Screenshot" />
+      <p>AMBCT running on Windows 10</p>
+    </div>
+    <div class="screenshot-box">
+      <img src="images/11Running.png" alt="11 Screenshot" />
+      <p>AMBCT running on Windows 11</p>
+    </div>
+  </div>
+
+  <div class="description">
+    <p>
+      <strong>AMBCT</strong> (Automatic Manual Backup Creation Tool) is a command-line based backup utility that uses <strong>wimlib-imagex</strong> for creating reliable and highly compressed system or file backups.
+    </p>
+    <p>
+      It allows users to select drives or folders, define a target location, choose compression methods, and manage advanced options like integrity checks or automatic shutdown.
+    </p>
+    <p>
+      This tool combines automation and manual control – perfect for users who want efficiency without losing control over how their backups are created.
+    </p>
+  </div>
+
+  <h2>1. Execution</h2>
+  <hr style="border: 1px solid #00FF00;">
+
+  <div style="display: flex; justify-content: center; gap: 2rem; margin: 1.5rem 0;">
+    <a class="button" href="https://github.com/BlitzPythoner/AMBCT/releases/download/v1.1/AMBCT_v1.1_x64.exe" download>⬇ Download for Windows (x64)</a>
+    <a class="button" href="https://github.com/BlitzPythoner/AMBCT/releases/download/v1.1/AMBCT_v1.1_x32.exe" download>⬇ Download for Windows (x32)</a>
+    </div>
+
+    <div style="text-align: center; margin: 2rem 0;">
+      <img src="images/Executing.png" alt="UAC prompt when executing" style="max-width: 100%; border: 2px solid #00FF00;">
+      <p style="margin-top: 0.5rem;">Double-click the downloaded <code>.exe</code> file. Admin rights will be requested automatically.</p>
+    </div>
+
+    <img class="guide" src="images/Running.png" alt="Main menu" />
+    <p>You'll arrive at the main menu of AMBCT.</p>
+
+    <h2>2. Inputs</h2>
+
+    <h3>2.1 Drive selection</h3>
+    <div style="margin: 2rem 0;"></div>
+    <img class="guide" src="images/DriveSelection.png" alt="Drive selection screen" style="max-width: 100%; border: 2px solid #00FF00;">
+    <p style="margin-top: 0.5rem;">Select the drive or path you want to back up.</p>
+    </div>
+
+    <h3>2.2 Target drive selection</h3>
+    <img class="guide" src="images/TargetDrive.png" alt="Target drive screen" />
+    <p>Choose where the backup should be stored.</p>
+
+    <h3>2.3 Compression method</h3>
+    <img class="guide" src="images/Compression.png" alt="Compression options"  />
+    <p>Select one of four compression levels (None, XPRESS, LZX, LZMS).</p>
+
+    <h3>2.4 Additional options</h3>
+    <img class="guide" src="images/Options.png" alt="Additional options" />
+    <p>Add options like integrity check, solid mode, or shutdown after backup.</p>
+
+    <h3>2.5 Disk speed measurement</h3>
+    <img class="guide" src="images/SpeedCheck.png" alt="Speed check" />
+    <p>The tool measures your target disk write speed to estimate backup time.</p>
+
+    <h3>2.6 Overview & Confirmation</h3>
+    <img class="guide" src="images/Overview.png" alt="Confirmation screen" />
+    <p>Check all selected options and confirm to start backup.</p>
+
+    <h3>2.7 Backup process</h3>
+    <img class="guide" src="images/Progress.png" alt="Backup in progress" />
+    <p>Backup begins. You'll see a progress bar with time estimation.</p>
+
+    <h4>2.7.1 Scanning</h4>
+    <img class="guide" src="images/Scanning.png" alt="Scanning files" />
+    <p>All files in the selected location are scanned and cataloged.</p>
+
+    <h4>2.7.2 Backup Creation</h4>
+    <img class="guide" src="images/Creation.png" alt="Creating backup" />
+    <p>Files are compressed and copied to the target location.</p>
+
+    <h4>2.7.3 Verifying</h4>
+    <img class="guide" src="images/Verifying.png" alt="Verifying backup" />
+    <p>The backup is verified to ensure all files were copied correctly.</p>
+
+    <h2>3. Summary</h2>
+    <div class="description">
+      <p>
+      AMBCT is a lightweight, command-line tool for creating reliable and space-efficient backups using wimlib-imagex. It guides the user through selecting source paths, choosing the target location, selecting a compression method, and enabling optional integrity checks.
+      </p>
+      <p>
+      Process at a glance: select source drive/folder → set target → choose compression and additional options → check write speed → review and confirm → start backup. During the process you will see scanning, creation, and verification stages.
+      </p>
+      <p>
+      Tip: verify the target path, ensure sufficient storage, and consider integrity checks before deleting old backups. Store created backups in a safe location.
+      </p>
+      <p>
+      Wishing you lots of fun and success using AMBCT. -BlitzPythoner
+      </p>
+    </div>
+
+  </body>
+  </html>

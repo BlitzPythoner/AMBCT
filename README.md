@@ -1,4 +1,4 @@
-# AMBCT v1.0 – Automatic Manual Backup Creation Tool
+# AMBCT – Automatic Manual Backup Creation Tool
 
 **Author:** BlitzPythoner  
 **Version:** 1.1
@@ -163,6 +163,7 @@ This software is provided *"as-is"*, without warranty of any kind.
 Use at your own risk. The author is not responsible for data loss or hardware damage caused by misuse of this tool.
 
 ---
+
 
 
 

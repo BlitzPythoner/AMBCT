@@ -1,7 +1,7 @@
 # AMBCT – Automatic Manual Backup Creation Tool
 
 **Author:** BlitzPythoner  
-**Version:** 1.1
+**Version:** 1.2
 **Language:** Python 3.6+  
 **OS Support:** Windows Vista, 7, 8.x, 10, 11  
 **Architecture:** x64 and x86 (x32)  
@@ -38,7 +38,8 @@ This tool combines automation and manual control – perfect for users who want 
 - **VSS Snapshot Support:** Uses Windows Volume Shadow Copy on NTFS drives to ensure safe captures of active systems.  
 - **Robust Error Handling:** Detects missing dependencies, permission issues, and low-space conditions.  
 - **Automatic Cleanup:** Removes temporary files and restores system state on exit.  
-- **Detailed Overview:** Shows all user selections and settings for confirmation before starting the backup.  
+- **Detailed Overview:** Shows all user selections and settings for confirmation before starting the backup.
+- - **Backup Logging:** Automatically creates a detailed `*_log.txt` file with timestamps for each backup process. 
 
 ---
 
@@ -163,6 +164,7 @@ This software is provided *"as-is"*, without warranty of any kind.
 Use at your own risk. The author is not responsible for data loss or hardware damage caused by misuse of this tool.
 
 ---
+
 
 
 

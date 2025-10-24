@@ -39,7 +39,7 @@ This tool combines automation and manual control – perfect for users who want 
 - **Robust Error Handling:** Detects missing dependencies, permission issues, and low-space conditions.  
 - **Automatic Cleanup:** Removes temporary files and restores system state on exit.  
 - **Detailed Overview:** Shows all user selections and settings for confirmation before starting the backup.
-- - **Backup Logging:** Automatically creates a detailed `*_log.txt` file with timestamps for each backup process. 
+- **Backup Logging:** Automatically creates a detailed `*_log.txt` file with timestamps for each backup process. 
 
 ---
 
@@ -164,6 +164,7 @@ This software is provided *"as-is"*, without warranty of any kind.
 Use at your own risk. The author is not responsible for data loss or hardware damage caused by misuse of this tool.
 
 ---
+
 
 
 

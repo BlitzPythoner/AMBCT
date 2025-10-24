@@ -129,6 +129,11 @@ Bug reports and feature requests are welcome via the project’s GitHub Issues p
   Major update with **x86 support** (now available as x64 and x86 builds).  
   Added new *Configure Backup* mode to edit existing `.wim` images (name, description, etc.).  
   Minor UI and stability improvements.
+  
+- **v1.2** *(24.10.2025)*  
+  Introduced **logging system** (`*_log.txt`) for detailed backup tracking.  
+  Improved stability, cleanup, and progress handling.
+  
 ---
 
 ## Project Duration
@@ -164,6 +169,7 @@ This software is provided *"as-is"*, without warranty of any kind.
 Use at your own risk. The author is not responsible for data loss or hardware damage caused by misuse of this tool.
 
 ---
+
 
 
 

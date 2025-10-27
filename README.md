@@ -1,7 +1,7 @@
 # AMBCT – Automatic Manual Backup Creation Tool
 
 **Author:** BlitzPythoner  
-**Version:** 1.2
+**Version:** 1.3
 **Language:** Python 3.6+  
 **OS Support:** Windows Vista, 7, 8.x, 10, 11  
 **Architecture:** x64 and x86 (x32)  
@@ -54,7 +54,27 @@ This tool combines automation and manual control – perfect for users who want 
 - **Multi-Index Support:** View and modify multiple images within one WIM file.  
 - **Safe Editing:** Uses `wimlib-imagex` with direct property modification — no data extraction required.  
 - **Version Detection:** Automatically identifies Windows versions (XP → 11) inside captured images.
+---
+## Backup Append Features
 
+- **Append Existing Backups:**  
+  Add new backups directly into an existing `.wim` file instead of creating separate images.  
+  Each appended backup is stored as an additional image within the same WIM file, keeping your backups organized and space-efficient.
+
+- **Automatic Compression Detection:**  
+  AMBCT automatically detects and uses the same compression type as the existing backup to ensure consistency.
+
+- **Smart Disk Space Handling:**  
+  Before appending, the tool checks the remaining space on the drive containing the existing backup and warns if it's insufficient.
+
+- **Integrity Verification:**  
+  The existing backup is verified before and after appending to ensure the image remains error-free.
+
+- **Detailed Logging:**  
+  Every append operation is recorded in a separate `*_log.txt` file with timestamps, including verification and success status.
+
+- **User-Controlled Options:**  
+  Optional flags like `check` and `shutdown` are supported for append operations.
 ---
 
 ## Requirements
@@ -134,6 +154,12 @@ Bug reports and feature requests are welcome via the project’s GitHub Issues p
   Introduced **logging system** (`*_log.txt`) for detailed backup tracking.  
   Improved stability, cleanup, and progress handling.
   
+- **v1.3** *(27.10.2025)*  
+  Added **Append Mode** to extend existing backup images.  
+  Introduced **Help Menu** for in-tool assistance.  
+  Improved logging, disk-space handling, and overall stability.
+
+  
 ---
 
 ## Project Duration
@@ -169,6 +195,7 @@ This software is provided *"as-is"*, without warranty of any kind.
 Use at your own risk. The author is not responsible for data loss or hardware damage caused by misuse of this tool.
 
 ---
+
 
 
 

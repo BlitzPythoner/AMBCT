@@ -121,14 +121,11 @@ For more info, visit https://blitzpythoner.github.io/AMBCT/ -> My custom Github 
  
 - Only **NTFS drives** support Volume Shadow Copy (snapshot).  
 - Requires sufficient free space for temporary and output files.  
-- Write-speed testing may fail on Windows versions without WinSAT.
-    - If it fails, it can be skipped. 
 
 ---
 
 ## Known Issues
 
-- On Windows 10 21H2 and up "wmic" may be missing, please install it via: 'DISM /Online /Add-Capability /CapabilityName:WMIC~~~~' as Admin.
 - Antivirus software might delay or interfere with file operations.  
 - Progress bar timing (ETA) may vary depending on system load.  
 - In rare cases, shadow copy creation might fail on removable drives.  
@@ -165,6 +162,7 @@ Bug reports and feature requests are welcome via the project’s GitHub Issues p
 ## Project Duration
 
 Development Period: **13.10.2025 – 21.10.2025**
+First Update Period: **21.10.2025 - 31.10.2025**
 
 ---
 

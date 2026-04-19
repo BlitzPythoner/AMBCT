@@ -161,8 +161,8 @@ Bug reports and feature requests are welcome via the project’s GitHub Issues p
 
 ## Project Duration
 
-Development Period: **13.10.2025 – 21.10.2025**
-First Update Period: **21.10.2025 - 31.10.2025**
+- Development Period: **13.10.2025 – 21.10.2025**
+- First Update Period: **21.10.2025 - 31.10.2025**
 
 ---
 

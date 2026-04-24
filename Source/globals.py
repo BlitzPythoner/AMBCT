@@ -1,10 +1,12 @@
-import psutil, shutil, ctypes, os, sys
+import psutil, shutil, ctypes, os, sys, time
 from datetime import datetime
+from tkinter import Tk, filedialog
 
 from errors import error_handler
 
-VERSION = 1.5
+VERSION = 1.6
 ARCH = 64
+start_time = None
 
 def get_volume_label(drive_letter):
     buf = ctypes.create_unicode_buffer(1024)
@@ -56,16 +58,31 @@ def is_removable(drive_letter):
     drive_type = ctypes.windll.kernel32.GetDriveTypeW(ctypes.c_wchar_p(path))
     return drive_type == 2
 
-def show_progressbar(percent, eta=None):
+def show_progressbar(percent):
+    global start_time
+
+    if start_time is None:
+        start_time = time.time()
+
+    elapsed = time.time() - start_time
+
     length = 40
     filled = int(length * percent / 100)
     bar = "#" * filled + "-" * (length - filled)
-    if eta is not None:
-        mins, secs = divmod(int(eta), 60)
-        line = f"[{bar}] {percent:3d}%  ETA: {mins:02d}m {secs:02d}s"
+
+    if percent >= 3:
+        total = elapsed / (percent / 100)
+        eta = total - elapsed
+
+        h, r = divmod(int(eta), 3600)
+        m, s = divmod(r, 60)
+
+        eta_str = f"{h:02d}h {m:02d}m {s:02d}s"
+        line = f"[{bar}] {percent:3d}%  ETA: {eta_str}"
     else:
-        line = f"[{bar}] {percent:3d}%"
-    sys.stdout.write("\r" + line + " " * 10)
+        line = f"[{bar}] {percent:3d}%  ETA: calculating..."
+
+    sys.stdout.write("\r" + line + " " * 5)
     sys.stdout.flush()
 
 def log_event(log_file, message):
@@ -101,3 +118,48 @@ def show_progressbar_small(percent):
         bar = "#" * filled + "-" * (length - filled)
         sys.stdout.write(f"\r[{bar}] {percent:3d}%")
         sys.stdout.flush()
+
+def normalize_path(path):
+
+    path = str(path).strip()
+
+    path = path.replace("/", "\\")
+
+    if len(path) == 1 and path.isalpha():
+        return f"{path}:\\"
+
+    if len(path) == 2 and path[1] == ":":
+        return f"{path}\\"
+
+    return os.path.normpath(path)
+
+def ask_path_gui(mode="folder", title="Select path", filetypes=None, default_ext=None):
+    root = Tk()
+    root.withdraw()
+
+    path = None
+
+    if mode == "folder":
+        path = filedialog.askdirectory(title=title)
+
+    elif mode == "file":
+        path = filedialog.askopenfilename(
+            title=title,
+            filetypes=filetypes or [("All files", "*.*")]
+        )
+
+    elif mode == "save":
+        path = filedialog.asksaveasfilename(
+            title=title,
+            defaultextension=default_ext or "",
+            filetypes=filetypes or [("All files", "*.*")]
+        )
+
+    root.destroy()
+    return path
+
+def get_drive_root(path):
+    drive = os.path.splitdrive(path)[0]
+    if not drive:
+        return None
+    return drive + "\\"

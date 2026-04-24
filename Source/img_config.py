@@ -1,6 +1,6 @@
 import os, time
 
-from globals import format_bytes
+from globals import ask_path_gui, normalize_path
 from config import config_backup_image
 from delete import delete_backup
 from check import check_backup
@@ -9,16 +9,12 @@ def image_configurator(wimlib_path):
     os.system("cls")
     print("=== IMAGE CONFIGURATOR ===\n")
     while True:
-        wim_path = input("Please enter the path to the backup image you want to configure: ")
-        ending = os.path.splitext(wim_path)[1].lower()
+        wim_path = normalize_path(ask_path_gui("file", "Select the backup image you want to configure.", [("Backup Image files", "*.wim")]))
         
-        if not os.path.isfile(wim_path):
-            print("The path you specified, doesn't lead to a file.\n")
+        if not wim_path:
+            print("No path selected!\n")
             continue
 
-        if ending != ".wim":
-            print("The path to file you specified, isn't a backup image file.\n")
-            continue 
         break
 
     while True:

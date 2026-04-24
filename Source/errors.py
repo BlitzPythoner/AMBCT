@@ -48,4 +48,16 @@ def error_handler(code):
         input("\nAn error occurred while verifying the backup. Please try again or use a different backup image. \nPress any key to restart the program...")
         from main import main
         return main()
-    
+    elif code == 15: # Minor error
+        input("\nError 15: An error occurred while measuring CPU performance. The compression benchmark could not be completed.\nPress any key to continue anyway...")
+        return
+    elif code == 16: # Minor error
+        input("\nError 16: An error occurred while measuring disk performance. The read or write speed test failed.\nPress any key to continue anyway...")
+        return
+    elif code == 17: # Minor error
+        input("\nError 17: Low-level disk access failed during performance testing. Direct I/O could not be executed.\nPress any key to close this program...")
+        sys.exit(17)
+    elif code == 18: # Minor error
+        input("\nError 18: The benchmark test file could not be created or accessed. The test file is missing or invalid.\nPress any key to continue anyway...")
+        return
+        

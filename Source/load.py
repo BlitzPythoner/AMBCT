@@ -17,6 +17,7 @@ def update(current_version):
             online_version = response.read().decode().strip()
     except Exception:
         error_handler(3)
+        return 4, None
 
     local = current_version
     remote = float(online_version.strip())
@@ -37,7 +38,7 @@ def load():
     temp_dir = os.path.join(tempfile.gettempdir(), "ambct_temp")
     os.makedirs(temp_dir, exist_ok=True)
 
-    required_files = ["sources/wimlib-imagex.exe", "sources/libwim-15.dll"]
+    required_files = ["sources/wimlib-imagex.exe", "sources/libwim-15.dll", "sources/bench.exe"]
 
     temp_paths = {}
     for file in required_files:
@@ -51,9 +52,10 @@ def load():
         temp_paths[file] = dest
 
     wimlib_path = temp_paths["sources/wimlib-imagex.exe"] 
+    bench_path = temp_paths["sources/bench.exe"]
     print("Files were successfully loaded!\n")
     
     print("Checking for updates...\n")
     upd_code, version = update(VERSION)
 
-    return 0, upd_code, wimlib_path, version
+    return 0, upd_code, wimlib_path, bench_path, version

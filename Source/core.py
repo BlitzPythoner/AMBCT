@@ -2,10 +2,13 @@ import os, time, sys, subprocess, re
 from datetime import datetime
 
 from errors import error_handler
-from globals import is_ntfs, is_removable, show_progressbar, log_event
+from globals import is_ntfs, show_progressbar, log_event
+import globals as g
 
-def create_backup(wimlib_path, backup_path, DRIVE, target_path, compression, backup_name, CHECK, SOLID, SHUTDOWN, write_speed, WR, eta_m, eta_s):
+def create_backup(wimlib_path, backup_path, DRIVE, target_path, compression, backup_name, CHECK, SOLID, SHUTDOWN):
     os.system("cls")
+
+    g.start_time = None
     
     log_file = os.path.join(target_path, f"{backup_name}_log.txt")
     with open(log_file, "w", encoding="utf-8") as log:
@@ -29,9 +32,12 @@ def create_backup(wimlib_path, backup_path, DRIVE, target_path, compression, bac
         args.append("--solid")
 
     enable_snapshot = False
-    if DRIVE:
-        if is_ntfs(backup_path) and not is_removable(backup_path):
-            enable_snapshot = True
+    drive_letter = backup_path[0].upper()
+
+    if DRIVE and drive_letter == "C" and is_ntfs(drive_letter):
+        enable_snapshot = True
+    else:
+        enable_snapshot = False
 
     if not enable_snapshot and "--snapshot" in args:
         args.remove("--snapshot")
@@ -39,8 +45,7 @@ def create_backup(wimlib_path, backup_path, DRIVE, target_path, compression, bac
     print("=== CREATING BACKUP ===\n")
 
     start_time = time.time()
-    last_percent = 0
-    smoothed_eta = 0
+
     phase = None
 
     process = subprocess.Popen(
@@ -81,12 +86,7 @@ def create_backup(wimlib_path, backup_path, DRIVE, target_path, compression, bac
                 match = re.search(r"Archiving file data:.*?\((\d+)%\)", line, re.IGNORECASE)
                 if match:
                     percent = int(match.group(1))
-                    if percent > last_percent:
-                        delta = time.time() - start_time
-                        eta = (100 - percent) * (delta / max(1, percent - last_percent))
-                        smoothed_eta = smoothed_eta * 0.7 + eta * 0.3 if smoothed_eta else eta
-                        last_percent = percent
-                    show_progressbar(percent, smoothed_eta)
+                    show_progressbar(percent)
                 continue
 
             if "Calculating integrity table" in line or "Verifying" in line:
@@ -145,8 +145,10 @@ def create_backup(wimlib_path, backup_path, DRIVE, target_path, compression, bac
         process.terminate()
         error_handler(8)
 
-def append_backup(wimlib_path, existing_backup_path, backup_path, DRIVE, compression, backup_name, CHECK, SHUTDOWN, write_speed, WR):
+def append_backup(wimlib_path, existing_backup_path, backup_path, DRIVE, compression, backup_name, CHECK, SHUTDOWN):
     os.system("cls")
+
+    g.start_time = None
     
     log_file = os.path.join(os.path.dirname(existing_backup_path), f"{backup_name}_log.txt")
     with open(log_file, "w", encoding="utf-8") as log:
@@ -154,7 +156,6 @@ def append_backup(wimlib_path, existing_backup_path, backup_path, DRIVE, compres
         start_time = datetime.now().strftime("%H:%M:%S, %d.%m.%Y")
         log.write(f"Backup Creation started at: {start_time}\n")
         log.write("------------------------------------------------\n")
-
     
     args = [
             wimlib_path, "append",
@@ -168,18 +169,19 @@ def append_backup(wimlib_path, existing_backup_path, backup_path, DRIVE, compres
         args.append("--check")
 
     enable_snapshot = False
-    if DRIVE:
-        if is_ntfs(backup_path) and not is_removable(backup_path):
-            enable_snapshot = True
+    drive_letter = backup_path[0].upper()
 
+    if DRIVE and drive_letter == "C" and is_ntfs(drive_letter):
+        enable_snapshot = True
+    else:
+        enable_snapshot = False   
+       
     if not enable_snapshot and "--snapshot" in args:
         args.remove("--snapshot")
 
     print("=== APPENDING BACKUP ===\n")
 
     start_time = time.time()
-    last_percent = 0
-    smoothed_eta = 0
     phase = None
 
     process = subprocess.Popen(
@@ -230,13 +232,7 @@ def append_backup(wimlib_path, existing_backup_path, backup_path, DRIVE, compres
                     match = re.search(r"Archiving file data:.*?\((\d+)%\)", line, re.IGNORECASE)
                     if match:
                         percent = int(match.group(1))
-                        if percent > last_percent:
-                            delta = time.time() - start_time
-                            eta = (100 - percent) * (delta / max(1, percent - last_percent))
-                            smoothed_eta = smoothed_eta * 0.8 + eta * 0.2 if smoothed_eta else eta
-                            start_time = time.time() 
-                            last_percent = percent
-                        show_progressbar(percent, smoothed_eta)
+                        show_progressbar(percent)
                     continue
 
                 if "Calculating integrity table" in line or "Verifying" in line:

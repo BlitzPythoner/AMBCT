@@ -1,22 +1,17 @@
 import os, subprocess, re
 
 from errors import error_handler
-from globals import list_drives, get_folder_size
+from globals import ask_path_gui
 
 def select_existing_backup(wimlib_path):
     os.system("cls")
     global existing_backup_path
     print("=== APPENDING AN EXISTING BACKUP ===\n")
     while True:
-        existing_backup_path = input("Type in the path to the existing backup file: ")
-        ending = os.path.splitext(existing_backup_path)[1].lower()
+        existing_backup_path = ask_path_gui("file", "Select the existing backup image file.", [("Backup image files", "*.wim")], ".wim")
         
-        if not os.path.isfile(existing_backup_path):
-            print("The path you specified, doesn't lead to a file.\n")
-            continue
-
-        if ending != ".wim":
-            print("The path to file you specified, isn't a backup image file.\n")
+        if not existing_backup_path:
+            print("No path selected!\n")
             continue
         break
     try:

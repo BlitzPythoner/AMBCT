@@ -2,13 +2,13 @@
 
 import os, time, webbrowser
 
-from globals import VERSION, get_free_space
+from globals import VERSION, get_free_space, normalize_path
 from load import load
 from errors import error_handler
 from drive import select_backup_drive, select_save_drive
 from storage import check_storage
 from options import c_select_options, a_select_options
-from write import write_test
+from bench import benchmark
 from pre_create import c_pre_create_backup, a_pre_create_backup
 from core import create_backup, append_backup
 from thanks import thanks
@@ -31,6 +31,8 @@ def main():
         print("You are using the newest version.\n")
     if update == 3:
         print("This version is currently under development.\n")
+    if update == 4:
+        print("It was not possible to check for updates.\n")
     print("[X] Exit AMBCT\n")
 
     while True:
@@ -40,11 +42,11 @@ def main():
             # Create backup
             backup_path, backup_size, DRIVE = select_backup_drive()
             target_path, target_available_space = select_save_drive()
-            storage_index = check_storage(backup_size, target_available_space)
+            storage_index = check_storage(backup_size, target_available_space, backup_path[0])
             compression, backup_name, CHECK, SOLID, SHUTDOWN = c_select_options(storage_index)
-            write_speed, WR = write_test(target_path)
-            eta_m, eta_s = c_pre_create_backup(backup_path, backup_size, DRIVE, target_path, target_available_space, compression, backup_name, CHECK, SOLID, SHUTDOWN, write_speed, WR)
-            create_backup(wimlib_path, backup_path, DRIVE, target_path, compression, backup_name, CHECK, SOLID, SHUTDOWN, write_speed, WR, eta_m, eta_s)
+            cpu_speed, read_speed_source, write_speed_target = benchmark(wimlib_path, bench_path, normalize_path(backup_path), normalize_path(target_path), compression)
+            c_pre_create_backup(backup_path, backup_size, DRIVE, target_path, target_available_space, compression, backup_name, CHECK, SOLID, SHUTDOWN, cpu_speed, read_speed_source, write_speed_target)
+            create_backup(wimlib_path, normalize_path(backup_path), DRIVE, normalize_path(target_path), compression, backup_name, CHECK, SOLID, SHUTDOWN)
             thanks()
 
         elif choice == "2":
@@ -52,11 +54,11 @@ def main():
             existing_backup_path, compression = select_existing_backup(wimlib_path)
             backup_path, backup_size, DRIVE = select_backup_drive()
             target_available_space = get_free_space(existing_backup_path[0])
-            storage_index = check_storage(backup_size, target_available_space)
+            storage_index = check_storage(backup_size, target_available_space, backup_path[0])
             backup_name, CHECK, SHUTDOWN = a_select_options()
-            write_speed, WR = write_test(existing_backup_path)
-            eta_m, eta_s = a_pre_create_backup(existing_backup_path, backup_path, backup_size, DRIVE, target_available_space, compression, backup_name, CHECK, SHUTDOWN, write_speed, WR)
-            append_backup(wimlib_path, existing_backup_path, backup_path, DRIVE, compression, backup_name, CHECK, SHUTDOWN, write_speed, WR)
+            cpu_speed, read_speed_source, write_speed_target = benchmark(wimlib_path, bench_path, normalize_path((backup_path)), normalize_path(existing_backup_path), compression)
+            a_pre_create_backup(existing_backup_path, backup_path, backup_size, DRIVE, target_available_space, compression, backup_name, CHECK, SHUTDOWN, cpu_speed, read_speed_source, write_speed_target)
+            append_backup(wimlib_path, normalize_path(existing_backup_path), normalize_path(backup_path), DRIVE, compression, backup_name, CHECK, SHUTDOWN)
             thanks()
 
         elif choice == "3":
@@ -77,5 +79,5 @@ def main():
             time.sleep(2)
             continue
 
-code, update, wimlib_path, version = load()
+code, update, wimlib_path, bench_path, version = load()
 main()

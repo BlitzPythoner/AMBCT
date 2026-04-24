@@ -1,6 +1,6 @@
 import os
 
-from globals import list_drives, get_folder_size
+from globals import list_drives, get_folder_size, ask_path_gui, get_free_space
 from errors import error_handler
 
 def select_backup_drive():
@@ -33,9 +33,9 @@ def select_backup_drive():
 
             elif choice == len(drives)+1:
                 while True: 
-                    backup_path = input("\nType in a path to a Folder, what should be backed up: ")
-                    if not os.path.exists(backup_path):
-                        print("The path doesn't exist, make sure you typed the path correctly.")
+                    backup_path = ask_path_gui("folder", "Select the folder you want to be backed up.", None, None)
+                    if not backup_path:
+                        print("No path selected!\n")
                         continue
                     backup_size_folder = get_folder_size(backup_path)
                     return backup_path, backup_size_folder, DRIVE
@@ -61,6 +61,9 @@ def select_save_drive():
         print(f"Filesystem: {d['filesystem']}")
         print(f"Total: {d['total']} GB | Free: {d['free']} GB")
         print("-" * 40)
+
+    print(f"[{len(drives)+1}] Enter custom path")
+
     while True:
         try:
             choice = int(input("\nSelect a drive number: "))
@@ -69,20 +72,22 @@ def select_save_drive():
                 selected = drives[choice - 1]
                 target_drive = selected['drive']
                 target_free_space = selected['free']
+                target_path = f"{target_drive}:\\"
+                return target_path, target_free_space
+
+            elif choice == len(drives)+1:
                 while True:
-                    choice = input("\nDo you want also the specify a path in this drive, where the Backup should be stored? (Y/N): ").lower()
-                    if choice == "y":
-                        targetpath = input(f"Type in the path, letter is already included:\n{target_drive}:\\")
-                        target_path = f"{target_drive}:\\{targetpath}"
-                        if not os.path.exists(target_path):
-                            print("The path doesn't exists, try again.")
-                            continue
-                        return target_path, target_free_space
+                    target_path = ask_path_gui("folder", ...)
+                    if not target_path:
+                        print("No path selected!\n")
+                        continue
+                    break
 
-                    elif choice == "n":
-                        target_path = f"{target_drive}:\\"
-                        return target_path, target_free_space
+                drive_letter = target_path[0]  # <- DAS ist der Trick
+                target_free_space = get_free_space(drive_letter)
 
+                return target_path, target_free_space
+            
             else:
                 print("Invalid number, try again.")
         except ValueError:

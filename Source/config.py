@@ -1,4 +1,4 @@
-import os, subprocess, re
+import os, subprocess, re, time
 
 from globals import format_bytes
 from errors import error_handler
@@ -135,6 +135,7 @@ def config_backup_image(wimlib_path, wim_path):
             print(f"Changing {prop_name}... This may take a while depending on the size of your backup.")
             subprocess.run(command, check=True,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
             print(f"\n{prop_name} was successfully set to: {new_value}")
+            time.sleep(2)
             return 
         
         except Exception:

@@ -1,203 +1,174 @@
 # AMBCT – Automatic Manual Backup Creation Tool
 
 **Author:** BlitzPythoner  
-**Version:** 1.3
+**Version:** v1.61  
 **Language:** Python 3.6+  
 **OS Support:** Windows Vista, 7, 8.x, 10, 11  
-**Architecture:** x64 and x86 (x32)  
+**Architecture:** x64 only (v1.6+)
 
 ---
 
 ## Description
 
-AMBCT (Automatic Manual Backup Creation Tool) is a command-line based backup utility that uses **wimlib-imagex** for creating reliable and highly compressed system or file backups.  
-It allows users to select drives or folders, define a target location, choose compression methods, and manage advanced options like integrity checks or automatic shutdown.
+AMBCT (Automatic Manual Backup Creation Tool) is a command-line based backup utility that uses **wimlib-imagex** for creating reliable and highly compressed system or file backups.
 
-This tool combines automation and manual control – perfect for users who want efficiency **without losing control** over how their backups are created.
+It combines **automation, performance analysis, and manual control** to deliver accurate and efficient backup creation — even on legacy systems without modern dependencies.
+
+---
+
+## Core Features
+
+- **Native Disk Benchmark System**  
+  → Measures real read/write speed using direct I/O (no OS cache influence)  
+
+- **CPU Performance Benchmark**  
+  → Determines realistic compression speed  
+
+- **Dynamic ETA Calculation**  
+  → Based on actual CPU, read, and write speeds  
+  → Automatically detects bottlenecks  
+
+- **Accurate Progress Tracking**  
+  → Live progress bar with smoothed ETA  
+
+- **Full Control Backup System**  
+  → Supports drives, folders, and custom paths  
+
+- **Offline Capability**  
+  → Works fully without internet connection  
 
 ---
 
 ## Backup Creation Features
 
-- **Automatic Drive Detection:** Automatically lists all connected drives with volume names, sizes, and available space.  
-- **Flexible Backup Sources:** Create backups from entire drives or custom folders.  
-- **Custom Destination Paths:** Select any target drive or specify a subfolder for storing backups.  
-- **Smart Storage Check:** Warns if the destination has insufficient free space and suggests optimal requirements.  
-- **Advanced Compression Methods:**  
-  - `NONE` – No compression, fastest speed.  
-  - `XPRESS` – Balanced performance and size.  
-  - `LZX` – High compression, moderate CPU load.  
-  - `LZMS` – Maximum compression, minimal size, longest time.  
-- **Optional Backup Flags:**  
-  - `check` – Verifies backup integrity after completion.  
-  - `solid` – Increases compression by combining file data into solid blocks.  
-  - `shutdown` – Powers off the system automatically after the process finishes.  
-- **Write Speed Benchmark:** Runs a **WinSAT** test to measure target drive performance before backup.  
-- **ETA Prediction:** Calculates approximate backup time using real write speed data.  
-- **Dynamic Progress Bar:** Displays live percentage and time estimation during the backup.  
-- **VSS Snapshot Support:** Uses Windows Volume Shadow Copy on NTFS drives to ensure safe captures of active systems.  
-- **Robust Error Handling:** Detects missing dependencies, permission issues, and low-space conditions.  
-- **Automatic Cleanup:** Removes temporary files and restores system state on exit.  
-- **Detailed Overview:** Shows all user selections and settings for confirmation before starting the backup.
-- **Backup Logging:** Automatically creates a detailed `*_log.txt` file with timestamps for each backup process. 
+- Automatic drive detection with detailed information  
+- Backup entire drives or custom folders  
+- Flexible target selection  
+- Smart storage validation system  
+- Advanced compression methods:
+  - `NONE`
+  - `XPRESS`
+  - `LZX`
+  - `LZMS`
+- Optional flags:
+  - `check`
+  - `solid`
+  - `shutdown`
+- VSS Snapshot support for system backups  
+- Full logging system (`*_log.txt`)  
+- Pre-check summary before execution  
+
+---
+
+## Backup Append Features
+
+- Append backups to existing `.wim` files  
+- Automatic compression detection  
+- Pre- and post-verification of backups  
+- Safe multi-index management  
+- Logging for all append operations  
 
 ---
 
 ## Backup Configuration Features
 
-- **WIM Image Management:** Open and inspect existing `.wim` backup files.  
-- **Detailed Metadata View:** Displays compression type, chunk size, file size, creation time, and Windows build info.  
-- **Edit Backup Information:**  
-  - Change **Name**  
-  - Change **Display Name**  
-  - Change **Display Description**  
-- **Multi-Index Support:** View and modify multiple images within one WIM file.  
-- **Safe Editing:** Uses `wimlib-imagex` with direct property modification — no data extraction required.  
-- **Version Detection:** Automatically identifies Windows versions (XP → 11) inside captured images.
+- Inspect `.wim` images  
+- View detailed metadata:
+  - Compression
+  - Size
+  - Creation time
+  - Windows version
+- Modify:
+  - Name
+  - Display Name
+  - Description  
+- Delete individual backup indexes  
+- Verify backup integrity  
+
 ---
-## Backup Append Features
 
-- **Append Existing Backups:**  
-  Add new backups directly into an existing `.wim` file instead of creating separate images.  
-  Each appended backup is stored as an additional image within the same WIM file, keeping your backups organized and space-efficient.
+## Performance System (v1.6+)
 
-- **Automatic Compression Detection:**  
-  AMBCT automatically detects and uses the same compression type as the existing backup to ensure consistency.
+AMBCT uses a **multi-factor performance model**:
 
-- **Smart Disk Space Handling:**  
-  Before appending, the tool checks the remaining space on the drive containing the existing backup and warns if it's insufficient.
+- CPU speed (compression)
+- Source read speed
+- Target write speed
 
-- **Integrity Verification:**  
-  The existing backup is verified before and after appending to ensure the image remains error-free.
+The slowest component determines the **effective speed**:
 
-- **Detailed Logging:**  
-  Every append operation is recorded in a separate `*_log.txt` file with timestamps, including verification and success status.
+This ensures realistic ETA predictions and optimal behavior across all systems.
 
-- **User-Controlled Options:**  
-  Optional flags like `check` and `shutdown` are supported for append operations.
 ---
 
 ## Requirements
 
-- **Administrator privileges** (required for disk and shadow copy access)  
-- **Python 3.6 or higher**  
-- **Windows Vista or later**  
-- **wimlib-imagex** and **libwim-15.dll** (included in `sources/` folder)  
-- **WinSAT** (included in most Windows versions)  
-- If you using the .exe all you need is to execute the program (:
+- Administrator privileges  
+- Windows Vista or later  
+- wimlib-imagex (included)  
+- No external tools required  
 
 ---
 
 ## How It Works
 
-1. **Drive Detection:**  
-   AMBCT scans and lists all available drives with names, sizes, and free space.  
+Visit my github page: https://blitzpythoner.github.io/AMBCT/ (Currenty reworking)
 
-2. **Source Selection:**  
-   The user selects either an entire drive or a specific folder to back up.  
+---
 
-3. **Destination Selection:**  
-   A target drive (and optional subfolder) is chosen as the backup destination.  
+## Compatibility
 
-4. **Storage & Compression Check:**  
-   AMBCT verifies available space and prompts the user to choose a compression method.  
+AMBCT is designed to work on both modern and legacy systems:
 
-5. **Performance Benchmark:**  
-   A write-speed test using **WinSAT** measures target drive performance to improve ETA accuracy.  
+- Windows Vista  
+- Windows 7  
+- Windows 8 / 8.1  
+- Windows 10  
+- Windows 11  
 
-6. **Pre-Backup Summary:**  
-   All chosen settings are displayed for final user confirmation.  
+No modern APIs or online services required.
 
-7. **Backup Creation:**  
-   The program uses **wimlib-imagex** to capture the selected source into a `.wim` file, showing live progress and ETA.  
-
-8. **Post-Processing:**  
-   If selected, AMBCT performs integrity verification (`--check`) and/or shuts down the system automatically after completion.
- 
-For more info, visit https://blitzpythoner.github.io/AMBCT/ -> My custom Github page!
 ---
 
 ## Limitations
- 
-- Only **NTFS drives** support Volume Shadow Copy (snapshot).  
-- Requires sufficient free space for temporary and output files.  
+
+- VSS only works on NTFS drives  
+- Performance depends on hardware  
+- Requires sufficient disk space  
 
 ---
 
 ## Known Issues
 
-- Antivirus software might delay or interfere with file operations.  
-- Progress bar timing (ETA) may vary depending on system load.  
-- In rare cases, shadow copy creation might fail on removable drives.  
-
-Bug reports and feature requests are welcome via the project’s GitHub Issues page.
+- ETA may vary under heavy system load  
+- Antivirus software may slow down operations  
+- Benchmark may fail on restricted systems (handled safely)  
 
 ---
-## Releases
 
-- **v1.0** *(21.10.2025)*  
-  First public release of AMBCT (x64).  
-  Includes core backup creation, compression options, WinSAT speed test, and VSS snapshot support.
+## Project Status
 
-- **v1.0.1** *(22.10.2025)*  
-  Bugfix release improving ETA calculation and handling failed WinSAT tests.
-
-- **v1.1** *(22.10.2025)*  
-  Major update with **x86 support** (now available as x64 and x86 builds).  
-  Added new *Configure Backup* mode to edit existing `.wim` images (name, description, etc.).  
-  Minor UI and stability improvements.
-  
-- **v1.2** *(24.10.2025)*  
-  Introduced **logging system** (`*_log.txt`) for detailed backup tracking.  
-  Improved stability, cleanup, and progress handling.
-  
-- **v1.3** *(27.10.2025)*  
-  Added **Append Mode** to extend existing backup images.  
-  Introduced **Help Menu** for in-tool assistance.  
-  Improved logging, disk-space handling, and overall stability.
-
-  
----
-
-## Project Duration
-
-- Development Period: **13.10.2025 – 21.10.2025**
-- First Update Period: **21.10.2025 - 31.10.2025**
+As of April 2026, AMBCT is still under active development. However, development may be suspended at any time for an indefinite period.
+Future updates will focus on stability improvements and advanced backup features.
 
 ---
 
 ## License and Third-Party Software
 
-This project is distributed under a custom permissive license.  
-See `LICENSE.txt` for full details.
+Includes:
 
-This tool includes the following third-party software:
-
-- **wimlib-imagex** (by Eric Biggers) – Licensed under GNU GPL v3 or later  
-  Source: https://wimlib.net/downloads/
-
-I do not modify or recompile this tool; it is included in its original binary form.
+- **wimlib-imagex** (GPL v3)  
+  https://wimlib.net/
 
 ---
 
 ## Credits
 
-**Created by:** BlitzPythoner  
-Special thanks to the open-source community and contributors of **wimlib**.  
+Created by BlitzPythoner  
 
 ---
 
 ## Disclaimer
 
-This software is provided *"as-is"*, without warranty of any kind.  
-Use at your own risk. The author is not responsible for data loss or hardware damage caused by misuse of this tool.
-
----
-
-
-
-
-
-
-
-
+This software is provided "as-is" without warranty.  
+Use at your own risk.

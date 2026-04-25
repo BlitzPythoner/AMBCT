@@ -112,7 +112,7 @@ This ensures realistic ETA predictions and optimal behavior across all systems.
 
 ## How It Works
 
-Visit my github page: https://blitzpythoner.github.io/AMBCT/ (Currenty reworking)
+Visit my github page: https://blitzpythoner.github.io/AMBCT/ 
 
 ---
 

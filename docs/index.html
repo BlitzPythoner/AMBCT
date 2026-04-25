@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>AMBCT - Automatic Manual Backup Creation Tool</title>
+
+<style>
+body {
+    background-color: #000;
+    color: #00FF00;
+    font-family: monospace;
+    max-width: 1100px;
+    margin: auto;
+    padding: 2rem;
+    line-height: 1.6;
+}
+
+h1 {
+    border-bottom: 2px solid #00FF00;
+    padding-bottom: 0.5rem;
+}
+
+h2 {
+    border-bottom: 1px solid #00FF00;
+    margin-top: 2rem;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.box {
+    width: 18%;
+    text-align: center;
+}
+
+.box img {
+    width: 100%;
+    border: 2px solid #00FF00;
+}
+
+.section-img {
+    width: 80%;
+    display: block;
+    margin: 1rem auto;
+    border: 2px solid #00FF00;
+}
+
+.desc {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+</style>
+</head>
+
+<body>
+
+<h1>AMBCT – Automatic Manual Backup Creation Tool</h1>
+
+<p><strong>Version:</strong> v1.61 (64-bit)</p>
+<p>A performance-aware backup system using wimlib-imagex.</p>
+
+<h2>Compatibility</h2>
+
+<div class="row">
+  <div class="box">
+    <img src="sources/VistaRunning.png">
+    <p>Windows Vista</p>
+  </div>
+  <div class="box">
+    <img src="sources/7Running.png">
+    <p>Windows 7</p>
+  </div>
+  <div class="box">
+    <img src="sources/8Running.png">
+    <p>Windows 8</p>
+  </div>
+  <div class="box">
+    <img src="sources/10Running.png">
+    <p>Windows 10</p>
+  </div>
+  <div class="box">
+    <img src="sources/11Running.png">
+    <p>Windows 11</p>
+  </div>
+</div>
+
+<p class="desc">
+AMBCT runs on a wide range of Windows versions, from legacy systems like Vista to modern environments like Windows 11.  
+It does not rely on modern APIs or internet connectivity, making it usable even in restricted or offline setups.
+</p>
+
+<h2>Main Screen</h2>
+
+<img class="section-img" src="sources/Main.png">
+
+<p class="desc">
+The main menu is the central entry point of AMBCT.  
+From here, users can choose between creating a backup, appending to an existing one, or configuring backup images.
+</p>
+
+<h2>Create Backup</h2>
+
+<img class="section-img" src="sources/Create.png">
+
+<p class="desc">
+This mode allows you to create a completely new backup from a drive or folder.  
+The process guides you step-by-step, ensuring all necessary information is selected correctly.
+</p>
+
+<img class="section-img" src="sources/BackupDrive.png">
+
+<p class="desc">
+Here you select the source drive or folder that should be backed up.  
+AMBCT automatically detects drives and displays useful information such as free space and size.
+</p>
+
+<img class="section-img" src="sources/TargetDrive.png">
+
+<p class="desc">
+In this step, you choose where the backup will be stored.  
+Selecting a suitable target location is important to ensure enough space is available.
+</p>
+
+<img class="section-img" src="sources/Compression.png">
+
+<p class="desc">
+AMBCT offers multiple compression methods depending on your needs.  
+You can prioritize speed or compression ratio depending on available storage and performance.
+</p>
+
+<img class="section-img" src="sources/COptions.png">
+
+<p class="desc">
+Additional options such as integrity checks or automatic shutdown can be enabled here.  
+These options allow further customization of the backup process.
+</p>
+
+<img class="section-img" src="sources/Benchmark.png">
+
+<p class="desc">
+AMBCT performs a real benchmark before starting the backup.  
+It measures CPU performance as well as disk read and write speeds to calculate a realistic ETA.
+</p>
+
+<img class="section-img" src="sources/PreCreate.png">
+
+<p class="desc">
+All selected settings are displayed for final confirmation.  
+This ensures that no mistakes are made before starting the backup process.
+</p>
+
+<img class="section-img" src="sources/CreateEnd.png">
+
+<p class="desc">
+After completion, the backup is finalized and optionally verified.  
+The process ensures that all data has been written correctly.
+</p>
+
+<h2>Append Backup</h2>
+
+<img class="section-img" src="sources/SelectExistingBackup.png">
+
+<p class="desc">
+In append mode, an existing backup file is selected.  
+This allows adding new data without creating a completely new backup.
+</p>
+
+<img class="section-img" src="sources/AOptions.png">
+
+<p class="desc">
+Options can be configured similarly to the create mode.  
+Compression is automatically matched to the existing backup for consistency.
+</p>
+
+<img class="section-img" src="sources/Append.png">
+
+<p class="desc">
+The append process integrates the new data into the existing backup.  
+This avoids duplication and keeps backups organized in a single file.
+</p>
+
+<img class="section-img" src="sources/AppendEnd.png">
+
+<p class="desc">
+After completion, the updated backup is verified again.  
+This ensures the integrity of both old and newly added data.
+</p>
+
+<h2>Image Configurator</h2>
+
+<img class="section-img" src="sources/ConfiguratorSelect.png">
+
+<p class="desc">
+The configurator allows you to manage existing backup images.  
+You can inspect and modify their properties without extracting them.
+</p>
+
+<img class="section-img" src="sources/ConfiguratorOverview.png">
+
+<p class="desc">
+This overview displays all information about the selected backup.  
+It includes metadata such as size, compression type, and contained images.
+</p>
+
+<img class="section-img" src="sources/ConfigSelectIndex.png">
+
+<p class="desc">
+Select a specific index inside the backup to modify it.  
+Each index represents a separate backup entry within the WIM file.
+</p>
+
+<img class="section-img" src="sources/ConfigChangeValue.png">
+
+<p class="desc">
+Here you can change properties like name or description.  
+Changes are applied directly without needing to rebuild the backup.
+</p>
+
+<img class="section-img" src="sources/DeleteSelectIndex.png">
+
+<p class="desc">
+You can remove individual backup entries if they are no longer needed.  
+This helps to keep backup files clean and organized.
+</p>
+
+<img class="section-img" src="sources/DeleteDone.png">
+
+<p class="desc">
+After deletion, the backup is updated immediately.  
+The operation is performed safely using wimlib.
+</p>
+
+<img class="section-img" src="sources/CheckDone.png">
+
+<p class="desc">
+Backups can be verified at any time.  
+This ensures long-term data integrity and reliability.
+</p>
+
+<h2>Help</h2>
+
+<img class="section-img" src="sources/Help.png">
+
+<p class="desc">
+The built-in help section explains all available options.  
+It provides quick guidance directly inside the program.
+</p>
+
+<h2>Execution</h2>
+
+<img class="section-img" src="sources/Uac.png">
+
+<p class="desc">
+AMBCT requires administrator privileges to function correctly.  
+This is necessary for accessing drives and creating system snapshots.
+</p>
+
+<h2>Summary</h2>
+
+<p>
+AMBCT is a lightweight but powerful backup system designed for both modern and legacy Windows systems.
+</p>
+
+<p>
+It combines manual control with real performance analysis to ensure reliable and predictable backups.
+</p>
+
+</body>
+</html>

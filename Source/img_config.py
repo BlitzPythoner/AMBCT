@@ -4,6 +4,7 @@ from globals import ask_path_gui, normalize_path
 from config import config_backup_image
 from delete import delete_backup
 from check import check_backup
+from optimize import optimize_backup
 
 def image_configurator(wimlib_path):
     os.system("cls")
@@ -24,6 +25,7 @@ def image_configurator(wimlib_path):
         print("[1] Change properties of the backup")
         print("[2] Delete a backup")
         print("[3] Check a backup")
+        print("[4] Optimize this backup")
         print("[X] Back to main menu\n")
         choice = input("Choose an action: ").lower()
         
@@ -33,6 +35,8 @@ def image_configurator(wimlib_path):
             delete_backup(wimlib_path, wim_path)
         elif choice == "3":
             check_backup(wimlib_path, wim_path)
+        elif choice == "4":
+            optimize_backup(wimlib_path, wim_path)
         elif choice == "x":
             from main import main
             return main()

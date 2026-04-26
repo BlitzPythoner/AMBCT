@@ -37,11 +37,11 @@ def error_handler(code):
         from main import main
         return main()
     elif code == 12: # Moderate error
-        input("\nAn error occurred while configuring the backup image. This image may be corrupted. Please use a different one or try again. \nPress any key to restart the program...")
+        input("\nError 12: An error occurred while configuring the backup image. This image may be corrupted. Please use a different one or try again. \nPress any key to restart the program...")
         from main import main
         return main()
     elif code == 13: # Moderate error
-        input("\nError 12: An error occurred while deleting a backup in the backup image. Please select a different backup image. \nPress any key to restart the program...")
+        input("\nError 13: An error occurred while deleting a backup in the backup image. Please select a different backup image. \nPress any key to restart the program...")
         from main import main
         return main()
     elif code == 14: # Moderate error
@@ -60,4 +60,11 @@ def error_handler(code):
     elif code == 18: # Minor error
         input("\nError 18: The benchmark test file could not be created or accessed. The test file is missing or invalid.\nPress any key to continue anyway...")
         return
+    elif code == 19: # Moderate error
+        input("\nError 19: The size of the specified backup image could not be calculated. Please try again or select a different backup image to optimize. \nPress any key to restart the program...")
+        from main import main
+        return main()
+    elif code == 20: # Moderate error
+        input("\nError 20: An error occurred while optimizing the backup image. Please try again. If you encounter further errors, please visit my GitHub page. \nPress any key to close the program...")
+        sys.exit(20)
         

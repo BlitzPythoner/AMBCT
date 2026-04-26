@@ -83,7 +83,7 @@ def select_save_drive():
                         continue
                     break
 
-                drive_letter = target_path[0]  # <- DAS ist der Trick
+                drive_letter = target_path[0]  
                 target_free_space = get_free_space(drive_letter)
 
                 return target_path, target_free_space

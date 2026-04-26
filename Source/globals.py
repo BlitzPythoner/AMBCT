@@ -1,10 +1,10 @@
-import psutil, shutil, ctypes, os, sys, time
+import psutil, shutil, ctypes, os, sys, time, subprocess, re
 from datetime import datetime
 from tkinter import Tk, filedialog
 
 from errors import error_handler
 
-VERSION = 1.61
+VERSION = 1.62
 ARCH = 64
 start_time = None
 _last_eta_update = 0
@@ -180,3 +180,79 @@ def get_drive_root(path):
     if not drive:
         return None
     return drive + "\\"
+
+def get_file_size(path):
+    try:
+        if not os.path.isfile(path):
+            return None
+
+        size_bytes = os.path.getsize(path)
+        size_gb = round(size_bytes / (1024**3), 2)
+
+        return size_gb
+
+    except (OSError, PermissionError):
+        return None
+    
+def get_compression(wimlib_path, wim_path):
+    try:
+        result = subprocess.run(
+            [wimlib_path, "info", wim_path],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+            universal_newlines=True,
+            check=True
+        )
+        wim_output = result.stdout
+        raw_compression = re.search(r"Compression:\s+(.+)", wim_output)
+        existing_backup_compression = raw_compression.group(1)
+    except Exception:
+        error_handler(9)
+    
+    return existing_backup_compression
+
+def get_compression_factor(old_comp, new_comp):
+    rank = {
+        "NONE": 1,
+        "XPRESS": 2,
+        "LZX": 3,
+        "LZMS": 4
+    }
+
+    old = rank.get(old_comp.upper())
+    new = rank.get(new_comp.upper())
+
+    if old is None or new is None:
+        return None, None
+
+    diff = new - old
+
+    if diff == 0:
+        min_factor = 1.0
+        rec_factor = 1.1
+
+    elif diff == 1:
+        min_factor = 0.85
+        rec_factor = 0.95
+
+    elif diff == 2:
+        min_factor = 0.7
+        rec_factor = 0.85
+
+    elif diff >= 3:
+        min_factor = 0.6
+        rec_factor = 0.8
+
+    elif diff == -1:
+        min_factor = 1.1
+        rec_factor = 1.25
+
+    elif diff == -2:
+        min_factor = 1.25
+        rec_factor = 1.5
+
+    elif diff <= -3:
+        min_factor = 1.5
+        rec_factor = 1.8
+
+    return min_factor, rec_factor

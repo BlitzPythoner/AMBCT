@@ -10,7 +10,7 @@ def check_storage(backup_size, free_space, letter):
     
     print("=== CHECKING AVAILABLE STORAGE ===\n")
     
-    if free_space < backup_size*0.75:
+    if free_space <= backup_size*0.75:
         print("\nError 5: The target drive does not have enough storage space for the backup you are trying to perform. Free up space on the destination drive or reduce the size of the backup:\n")
         print(f"Minimum required storage: {backup_size*0.75:.1f} GB")
         print(f"Free Space: {free_space:.1f} GB\n")
@@ -43,9 +43,11 @@ def check_storage(backup_size, free_space, letter):
                 continue
 
     if letter == "C":
-        used, allocated, max = check_vss()
-        if used == None:
+        result = check_vss()
+        if result == None:
             return round(free_space/backup_size, 2)
+        
+        used, allocated, max = result
         
         vss_percent = max
         vss_index = round((psutil.disk_usage("C:\\").total * (vss_percent / 100)) / (1024**3), 2)
